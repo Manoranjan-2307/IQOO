@@ -88,12 +88,9 @@ export default function StudentDashboard() {
           {/* Top Bar */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", flexWrap: "wrap", gap: "16px" }}>
             <div>
-              <h2 style={{ margin: "0 0 4px 0", fontSize: "24px", fontWeight: 800, color: "#1F2937", letterSpacing: "-0.5px" }}>
-                Student Researcher Workspace
+              <h2 style={{ margin: 0, fontSize: "24px", fontWeight: 800, color: "#1F2937", letterSpacing: "-0.5px" }}>
+                Student Research Workspace
               </h2>
-              <p style={{ margin: 0, fontSize: "14px", color: "#64748B" }}>
-                Submit research proposals, track visual evaluation milestones, and monitor IP patent progression.
-              </p>
             </div>
             <button
               onClick={() => setIsModalOpen(true)}

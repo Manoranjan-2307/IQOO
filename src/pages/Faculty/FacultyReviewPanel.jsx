@@ -29,13 +29,13 @@ const getShortDept = (dept) => {
 const getStatusBadge = (status) => {
   const s = (status || "").toUpperCase();
   const map = {
-    SUBMITTED: { bg: "#2563EB", label: "Submitted" },
+    SUBMITTED: { bg: "#0D9488", label: "Submitted" },
     UNDER_REVIEW: { bg: "#D97706", label: "In Evaluation" },
-    REVISION_REQUESTED: { bg: "#EA580C", label: "Revision Needed" },
-    APPROVED: { bg: "#008000", label: "Approved" },
-    READY_FOR_IP: { bg: "#4F46E5", label: "Patent Eligible" },
-    IP_FILED: { bg: "#0284C7", label: "Patent Filed" },
-    REJECTED: { bg: "#FF4D4D", label: "Rejected" },
+    REVISION_REQUESTED: { bg: "#DC2626", label: "Revision Requested" },
+    APPROVED: { bg: "#059669", label: "Approved" },
+    READY_FOR_IP: { bg: "#6366F1", label: "Patent Eligible" },
+    IP_FILED: { bg: "#2563EB", label: "Filed" },
+    REJECTED: { bg: "#DC2626", label: "Rejected" },
   };
   const b = map[s] || map.SUBMITTED;
   return (
@@ -43,12 +43,14 @@ const getStatusBadge = (status) => {
       style={{
         backgroundColor: b.bg,
         color: "#FFFFFF",
-        padding: "5px 18px",
-        borderRadius: "9999px",
+        padding: "4px 14px",
+        borderRadius: "20px",
         fontSize: "12px",
-        fontWeight: 600,
+        fontWeight: 700,
         display: "inline-block",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.08)",
+        letterSpacing: "0.2px",
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+        whiteSpace: "nowrap",
       }}
     >
       {b.label}
@@ -133,7 +135,11 @@ export default function FacultyReviewPanel() {
     const matchesSearch =
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (p.studentName && p.studentName.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchesStatus = statusFilter === "ALL" || p.status === statusFilter;
+    
+    // Clear / exclude IP_FILED projects from pending review queue when ALL is selected
+    const isNotFiled = statusFilter === "ALL" ? p.status !== "IP_FILED" : true;
+    const matchesStatus = statusFilter === "ALL" ? isNotFiled : p.status === statusFilter;
+
     return matchesSearch && matchesStatus;
   });
 
@@ -144,12 +150,9 @@ export default function FacultyReviewPanel() {
         <Sidebar />
         <main style={{ flex: 1, padding: "24px 28px", minWidth: 0 }}>
           <div style={{ marginBottom: "24px" }}>
-            <h2 style={{ margin: "0 0 4px 0", fontSize: "24px", fontWeight: 800, color: "#1F2937" }}>
-              Faculty Proposal Review &amp; Evaluation Panel
+            <h2 style={{ margin: 0, fontSize: "24px", fontWeight: 800, color: "#1F2937" }}>
+              Faculty Proposal Review Panel
             </h2>
-            <p style={{ margin: 0, fontSize: "14px", color: "#64748B" }}>
-              Consolidated evaluation console to review student proposals, provide feedback, and flag projects for Intellectual Property (IP) filings.
-            </p>
           </div>
 
           <div style={{ display: "flex", gap: "16px", marginBottom: "24px" }}>
@@ -186,7 +189,7 @@ export default function FacultyReviewPanel() {
                   fontSize: "14px",
                 }}
               >
-                <option value="ALL">All Statuses</option>
+                <option value="ALL">All</option>
                 <option value="SUBMITTED">Submitted</option>
                 <option value="UNDER_REVIEW">In Evaluation</option>
                 <option value="REVISION_REQUESTED">Revision Needed</option>
@@ -222,8 +225,8 @@ export default function FacultyReviewPanel() {
                       }}
                     >
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-                        <span style={{ fontSize: "12px", fontWeight: 700, color: "#4B5D8C" }}>
-                          Student: {p.studentName || p.student_name || "Student Researcher"}
+                        <span style={{ fontSize: "13px", fontWeight: 700, color: "#1E293B" }}>
+                          {p.studentName || p.student_name || "Student Researcher"}
                         </span>
                         <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748B", backgroundColor: "#EEF4F8", padding: "2px 8px", borderRadius: "4px" }}>
                           {getShortDept(p.department)}
@@ -251,7 +254,7 @@ export default function FacultyReviewPanel() {
                         {selectedProject.title}
                       </h3>
                       <span style={{ fontSize: "12px", color: "#64748B" }}>
-                        Submitted by: <strong>{selectedProject.studentName || selectedProject.student_name || "Unknown"}</strong> • <span style={{ fontWeight: 700, color: "#4B5D8C", backgroundColor: "#E8EDF7", padding: "2px 6px", borderRadius: "4px" }}>{getShortDept(selectedProject.department)}</span>
+                        Lead: <strong>{selectedProject.studentName || selectedProject.student_name || "Unknown"}</strong> • <span style={{ fontWeight: 700, color: "#4B5D8C", backgroundColor: "#E8EDF7", padding: "2px 6px", borderRadius: "4px" }}>{getShortDept(selectedProject.department)}</span>
                       </span>
                     </div>
                   </div>

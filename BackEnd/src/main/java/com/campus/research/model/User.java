@@ -31,7 +31,7 @@ public class User {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public enum Role {
-        STUDENT, FACULTY, IP_CELL, ADMIN
+        STUDENT, FACULTY, IP_CELL, ACADEMIC_OFFICE, ADMIN
     }
 
     public User() {}

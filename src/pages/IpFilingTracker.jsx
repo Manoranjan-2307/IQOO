@@ -197,23 +197,25 @@ export default function IpFilingTracker() {
   const getFilingStatusBadge = (status) => {
     const s = (status || "").toUpperCase();
     const map = {
-      DRAFTED: { bg: "#EFF6FF", color: "#2563EB", text: "Drafted" },
-      FILED: { bg: "#FEF3C7", color: "#D97706", text: "Application Filed" },
-      UNDER_EXAMINATION: { bg: "#F3E8FF", color: "#7C3AED", text: "Under Examination" },
-      GRANTED: { bg: "#ECFDF5", color: "#059669", text: "Patent Granted 🎉" },
-      REJECTED: { bg: "#FEF2F2", color: "#DC2626", text: "Application Rejected" },
+      DRAFTED: { bg: "#2563EB", text: "Drafted" },
+      FILED: { bg: "#D97706", text: "Application Filed" },
+      UNDER_EXAMINATION: { bg: "#7C3AED", text: "Under Examination" },
+      GRANTED: { bg: "#059669", text: "Patent Granted" },
+      REJECTED: { bg: "#DC2626", text: "Application Rejected" },
     };
     const b = map[s] || map.DRAFTED;
     return (
       <span
         style={{
           backgroundColor: b.bg,
-          color: b.color,
-          padding: "4px 10px",
-          borderRadius: "12px",
+          color: "#FFFFFF",
+          padding: "4px 14px",
+          borderRadius: "20px",
           fontSize: "12px",
           fontWeight: 700,
           display: "inline-block",
+          whiteSpace: "nowrap",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.12)",
         }}
       >
         {b.text}
@@ -309,40 +311,15 @@ export default function IpFilingTracker() {
             }}
           >
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <ShieldCheck size={28} color="#4B5D8C" />
                 <h2 style={{ margin: 0, fontSize: "24px", fontWeight: 800, color: "#1F2937", letterSpacing: "-0.5px" }}>
-                  Institutional IP &amp; Patent Collaborative Tracker
+                  Campus IP &amp; Patent Tracker
                 </h2>
               </div>
-              <p style={{ margin: 0, fontSize: "14px", color: "#64748B" }}>
-                Permanent repository to manage campus intellectual property, patent application numbers, and grant lifecycles.
-              </p>
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <button
-                onClick={() => setIsNewModalOpen(true)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "10px 18px",
-                  borderRadius: "8px",
-                  backgroundColor: "#4B5D8C",
-                  border: "none",
-                  color: "#FFFFFF",
-                  fontSize: "13px",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  boxShadow: "0 4px 6px -1px rgba(75, 93, 140, 0.25)",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#3F507A")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#4B5D8C")}
-              >
-                <Plus size={16} /> Record New IP Filing
-              </button>
-
               <button
                 onClick={exportCsv}
                 style={{
@@ -480,7 +457,7 @@ export default function IpFilingTracker() {
                   fontSize: "13px",
                 }}
               >
-                <option value="ALL">All Categories</option>
+                <option value="ALL">All</option>
                 <option value="PATENT">Patent</option>
                 <option value="COPYRIGHT">Copyright</option>
                 <option value="TRADE_SECRET">Trade Secret</option>
@@ -502,7 +479,7 @@ export default function IpFilingTracker() {
                   fontSize: "13px",
                 }}
               >
-                <option value="ALL">All Statuses</option>
+                <option value="ALL">All</option>
                 <option value="DRAFTED">Drafted</option>
                 <option value="FILED">Application Filed</option>
                 <option value="UNDER_EXAMINATION">Under Examination</option>
@@ -581,7 +558,7 @@ export default function IpFilingTracker() {
                           <td style={{ padding: "14px 16px" }}>
                             <div style={{ fontWeight: 700, color: "#1F2937", maxWidth: "300px" }}>{title}</div>
                             <div style={{ fontSize: "12px", color: "#64748B", marginTop: "2px" }}>
-                              Author / Lead: {student}
+                              Lead: {student}
                             </div>
                           </td>
                           <td style={{ padding: "14px 16px" }}>
@@ -828,7 +805,7 @@ export default function IpFilingTracker() {
                   type="text"
                   value={newFiling.studentName}
                   onChange={(e) => setNewFiling({ ...newFiling, studentName: e.target.value })}
-                  placeholder="e.g. Alex Johnson"
+                  placeholder="e.g. Aarav Sharma"
                   style={{
                     width: "100%",
                     padding: "9px 12px",
@@ -1019,7 +996,7 @@ export default function IpFilingTracker() {
                   type="text"
                   value={newFiling.inventors}
                   onChange={(e) => setNewFiling({ ...newFiling, inventors: e.target.value })}
-                  placeholder="e.g. Alex Johnson, Dr. Robert Vance"
+                  placeholder="e.g. Aarav Sharma, Dr. Rajesh Kumar"
                   style={{
                     width: "100%",
                     padding: "9px 12px",

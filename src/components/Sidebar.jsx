@@ -2,11 +2,12 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function SidebarItem({ to, iconClass }) {
+function SidebarItem({ to, iconClass, title }) {
   return (
     <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
       <NavLink
         to={to}
+        title={title}
         style={({ isActive }) => ({
           width: "44px",
           height: "44px",
@@ -14,12 +15,12 @@ function SidebarItem({ to, iconClass }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: isActive ? "#4B5D8C" : "#64748B",
-          backgroundColor: isActive ? "#E8EDF7" : "transparent",
-          border: isActive ? "1px solid #D9E2EC" : "1px solid transparent",
+          color: isActive ? "#7C3AED" : "#64748B",
+          backgroundColor: isActive ? "#F3E8FF" : "transparent",
+          border: isActive ? "1px solid #DDD6FE" : "1px solid transparent",
           textDecoration: "none",
           transition: "all 0.2s ease",
-          boxShadow: isActive ? "0 2px 8px rgba(75, 93, 140, 0.15)" : "none",
+          boxShadow: isActive ? "0 4px 12px rgba(124, 58, 237, 0.2)" : "none",
         })}
       >
         <i className={iconClass} style={{ fontSize: "1.25rem" }}></i>
@@ -42,6 +43,7 @@ export default function Sidebar() {
   const isStudent = user.role === "STUDENT";
   const isFaculty = user.role === "FACULTY";
   const isIpCell = user.role === "IP_CELL";
+  const isAcademics = user.role === "ACADEMIC_OFFICE";
   const isAdmin = user.role === "ADMIN";
 
   return (
@@ -66,28 +68,59 @@ export default function Sidebar() {
         fontFamily: "'Poppins', sans-serif",
       }}
     >
-      {/* Navigation Icons Container centered vertically */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: "24px",
+          gap: "20px",
           width: "100%",
           flex: 1,
           overflowY: "auto",
         }}
       >
+        {isAcademics && (
+          <>
+            <SidebarItem
+              to="/academics/catalogue"
+              iconClass="bi bi-journal-plus"
+              title="S5 Catalogue Management"
+            />
+            <SidebarItem
+              to="/academics/mentor-allocation"
+              iconClass="bi bi-person-check"
+              title="Smart Guide Allocation"
+            />
+            <SidebarItem
+              to="/academics/helpdesk"
+              iconClass="bi bi-chat-left-text"
+              title="Academic Helpdesk Hub"
+            />
+          </>
+        )}
+
         {isStudent && (
           <>
             <SidebarItem
+              to="/student/catalogue"
+              iconClass="bi bi-journal-bookmark"
+              title="S5 Project Catalogue Selection"
+            />
+            <SidebarItem
+              to="/student/mini-project"
+              iconClass="bi bi-kanban"
+              title="Semester Mini-Project Tracker"
+            />
+            <SidebarItem
               to="/student/dashboard"
-              iconClass="bi bi-grid-1x2-fill"
+              iconClass="bi bi-journal-text"
+              title="Research Papers & Proposals"
             />
             <SidebarItem
               to="/ip-tracker"
               iconClass="bi bi-shield-check"
+              title="IP Tracker"
             />
           </>
         )}
@@ -95,12 +128,19 @@ export default function Sidebar() {
         {isFaculty && (
           <>
             <SidebarItem
+              to="/faculty/weekly-review"
+              iconClass="bi bi-calendar-check"
+              title="Weekly Log & Deliverables Review"
+            />
+            <SidebarItem
               to="/faculty/dashboard"
               iconClass="bi bi-check2-square"
+              title="Research Paper Reviews"
             />
             <SidebarItem
               to="/ip-tracker"
               iconClass="bi bi-shield-check"
+              title="IP Tracker"
             />
           </>
         )}
@@ -110,10 +150,12 @@ export default function Sidebar() {
             <SidebarItem
               to="/ip-tracker"
               iconClass="bi bi-shield-check"
+              title="IP Filing Tracker"
             />
             <SidebarItem
               to="/faculty/dashboard"
               iconClass="bi bi-journal-text"
+              title="Research Projects"
             />
           </>
         )}
@@ -121,18 +163,29 @@ export default function Sidebar() {
         {isAdmin && (
           <>
             <SidebarItem
-              to="/faculty/dashboard"
-              iconClass="bi bi-sliders"
+              to="/academics/catalogue"
+              iconClass="bi bi-journal-plus"
+              title="S5 Catalogue Management"
+            />
+            <SidebarItem
+              to="/academics/mentor-allocation"
+              iconClass="bi bi-person-check"
+              title="Smart Guide Allocation"
+            />
+            <SidebarItem
+              to="/academics/helpdesk"
+              iconClass="bi bi-chat-left-text"
+              title="Academic Helpdesk Hub"
             />
             <SidebarItem
               to="/ip-tracker"
               iconClass="bi bi-shield-check"
+              title="IP Tracker"
             />
           </>
         )}
       </div>
 
-      {/* Sign Out Icon Button at Bottom */}
       <div
         style={{
           marginTop: "auto",
@@ -145,6 +198,7 @@ export default function Sidebar() {
       >
         <button
           onClick={handleExit}
+          title="Sign Out"
           style={{
             width: "44px",
             height: "44px",

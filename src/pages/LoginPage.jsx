@@ -35,7 +35,9 @@ export default function LoginPage() {
         const { user } = response.data;
         login(user);
 
-        if (user.role === "IP_CELL") {
+        if (user.role === "ACADEMIC_OFFICE") {
+          navigate("/academics/catalogue");
+        } else if (user.role === "IP_CELL") {
           navigate("/ip-tracker");
         } else if (user.role === "FACULTY" || user.role === "ADMIN") {
           navigate("/faculty/dashboard");
@@ -52,7 +54,9 @@ export default function LoginPage() {
         const { user } = response.data;
         login(user);
 
-        if (user.role === "IP_CELL") {
+        if (user.role === "ACADEMIC_OFFICE") {
+          navigate("/academics/catalogue");
+        } else if (user.role === "IP_CELL") {
           navigate("/ip-tracker");
         } else if (user.role === "FACULTY" || user.role === "ADMIN") {
           navigate("/faculty/dashboard");
@@ -80,6 +84,10 @@ export default function LoginPage() {
       setEmail("ipcell@campus.edu");
       setPassword("admin123");
       setRole("IP_CELL");
+    } else if (userType === "academics") {
+      setEmail("academics@campus.edu");
+      setPassword("admin123");
+      setRole("ACADEMIC_OFFICE");
     }
   };
 
@@ -199,6 +207,23 @@ export default function LoginPage() {
             >
               🏛️ IP Cell
             </button>
+            <button
+              type="button"
+              onClick={() => fillQuickLogin("academics")}
+              style={{
+                flex: 1,
+                padding: "5px 4px",
+                fontSize: "11px",
+                fontWeight: 600,
+                backgroundColor: "#FEF3C7",
+                color: "#D97706",
+                border: "1px solid #FDE68A",
+                borderRadius: "6px",
+                cursor: "pointer",
+              }}
+            >
+              🏫 Office
+            </button>
           </div>
         </div>
 
@@ -268,7 +293,7 @@ export default function LoginPage() {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="e.g. Alex Johnson"
+                  placeholder="e.g. Aarav Sharma"
                   style={{
                     width: "100%",
                     padding: "9px 10px 9px 34px",
@@ -360,6 +385,8 @@ export default function LoginPage() {
                   <option value="CSE">CSE (Computer Science &amp; Engineering)</option>
                   <option value="AI&DS">AI&amp;DS (AI &amp; Data Science)</option>
                   <option value="AI&ML">AI&amp;ML (AI &amp; Machine Learning)</option>
+                  <option value="IT">IT (Information Technology)</option>
+                  <option value="CSBS">CSBS (Computer Science &amp; Business Systems)</option>
                   <option value="ECE">ECE (Electronics &amp; Communication)</option>
                   <option value="EEE">EEE (Electrical &amp; Electronics)</option>
                   <option value="IP Cell">IP Cell</option>
