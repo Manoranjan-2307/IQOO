@@ -11,6 +11,7 @@ import AcademicCatalogueManager from "./pages/AcademicOffice/AcademicCatalogueMa
 import AcademicMentorAllocation from "./pages/AcademicOffice/AcademicMentorAllocation";
 import AcademicHelpdesk from "./pages/AcademicOffice/AcademicHelpdesk";
 import IpFilingTracker from "./pages/IpFilingTracker";
+import IpExaminationQueue from "./pages/IpCell/IpExaminationQueue";
 
 // Protected Route Component for Role-Based Access Control
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -129,12 +130,20 @@ export default function App() {
             }
           />
 
-          {/* IP Filing Tracker */}
+          {/* IP Filing Tracker & Examination Queue */}
           <Route
             path="/ip-tracker"
             element={
               <ProtectedRoute allowedRoles={["STUDENT", "FACULTY", "IP_CELL", "ADMIN"]}>
                 <IpFilingTracker />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ip-cell/examination"
+            element={
+              <ProtectedRoute allowedRoles={["IP_CELL", "ADMIN"]}>
+                <IpExaminationQueue />
               </ProtectedRoute>
             }
           />

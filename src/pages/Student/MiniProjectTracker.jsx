@@ -94,18 +94,18 @@ export default function MiniProjectTracker() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F8FAFC", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar activeTab="mini-project" />
 
-        <main style={{ flex: 1, padding: "20px 32px", width: "100%", boxSizing: "border-box" }}>
+        <main style={{ flex: 1, padding: "28px 36px", width: "100%", boxSizing: "border-box" }}>
           {loading ? (
             <p style={{ color: "#64748B" }}>Loading semester mini-project details...</p>
           ) : !project ? (
             <div style={{ backgroundColor: "#FFFFFF", padding: "40px", borderRadius: "16px", textAlign: "center", border: "1px solid #E2E8F0" }}>
               <Layers size={48} color="#94A3B8" style={{ marginBottom: "16px" }} />
-              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1E293B" }}>No Mini-Project Allocated Yet</h2>
+              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#0F172A" }}>No Mini-Project Allocated Yet</h2>
               <p style={{ color: "#64748B", fontSize: "14px", maxWidth: "480px", margin: "8px auto 0 auto" }}>
                 The Academic Office will allocate your semester capstone title and assign a Faculty Mentor shortly.
               </p>
@@ -113,27 +113,27 @@ export default function MiniProjectTracker() {
           ) : (
             <>
               {/* Project Header Card */}
-              <div style={{ backgroundColor: "#FFFFFF", padding: "28px", borderRadius: "16px", border: "1px solid #E2E8F0", marginBottom: "28px" }}>
+              <div style={{ backgroundColor: "#FFFFFF", padding: "28px", borderRadius: "16px", border: "1px solid #E2E8F0", marginBottom: "24px", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
                   <div>
-                    <span style={{ backgroundColor: "#EFF6FF", color: "#1D4ED8", fontSize: "11px", fontWeight: 700, padding: "4px 10px", borderRadius: "12px", textTransform: "uppercase" }}>
+                    <span style={{ backgroundColor: "#F3E8FF", color: "#7C3AED", fontSize: "11px", fontWeight: 700, padding: "4px 12px", borderRadius: "20px", textTransform: "uppercase" }}>
                       {project.domain}
                     </span>
-                    <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#1E293B", margin: "8px 0 4px 0" }}>
+                    <h1 style={{ fontSize: "24px", fontWeight: 700, color: "#0F172A", margin: "8px 0 4px 0" }}>
                       {project.title}
                     </h1>
                     <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
-                      Faculty Mentor: <strong style={{ color: "#1E293B" }}>{project.faculty?.fullName}</strong> | Tech Stack: <span style={{ color: "#059669", fontWeight: 600 }}>{project.techStack}</span>
+                      Faculty Mentor: <strong style={{ color: "#0F172A" }}>{project.faculty?.fullName}</strong> | Tech Stack: <span style={{ color: "#059669", fontWeight: 600 }}>{project.techStack}</span>
                     </p>
                   </div>
 
                   <button
                     onClick={() => setShowLogModal(true)}
                     style={{
-                      backgroundColor: "#4B5D8C",
+                      backgroundColor: "#7C3AED",
                       color: "#FFFFFF",
                       padding: "10px 18px",
-                      borderRadius: "8px",
+                      borderRadius: "12px",
                       border: "none",
                       fontWeight: 600,
                       fontSize: "13px",
@@ -141,7 +141,7 @@ export default function MiniProjectTracker() {
                       alignItems: "center",
                       gap: "8px",
                       cursor: "pointer",
-                      boxShadow: "0 4px 10px rgba(75, 93, 140, 0.2)",
+                      boxShadow: "0 4px 12px rgba(124, 58, 237, 0.25)",
                     }}
                   >
                     <PlusCircle size={16} /> Submit Weekly Log

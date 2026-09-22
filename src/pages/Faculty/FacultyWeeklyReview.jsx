@@ -138,15 +138,15 @@ export default function FacultyWeeklyReview() {
   const activeProject = projects.find((p) => p.id === selectedProjectId);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F8FAFC", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar activeTab="faculty-logs" />
 
-        <main style={{ flex: 1, padding: "20px 32px", width: "100%", boxSizing: "border-box" }}>
+        <main style={{ flex: 1, padding: "28px 36px", width: "100%", boxSizing: "border-box" }}>
           {/* Header Title */}
-          <div style={{ marginBottom: "20px" }}>
-            <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#1E293B", margin: 0 }}>
+          <div style={{ marginBottom: "24px" }}>
+            <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#0F172A", margin: 0 }}>
               Faculty Weekly Review
             </h1>
           </div>
@@ -154,16 +154,16 @@ export default function FacultyWeeklyReview() {
           {loading ? (
             <p style={{ color: "#64748B" }}>Loading assigned student projects...</p>
           ) : projects.length === 0 ? (
-            <div style={{ backgroundColor: "#FFFFFF", padding: "32px", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
+            <div style={{ backgroundColor: "#FFFFFF", padding: "36px", borderRadius: "16px", border: "1px solid #E2E8F0" }}>
               <p style={{ color: "#64748B", margin: 0 }}>No student projects assigned under your mentorship yet.</p>
             </div>
           ) : (
-            <div style={{ display: "grid", gridTemplateColumns: "320px 1fr", gap: "24px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: "24px" }}>
               {/* Left Column: Assigned Student Cards */}
-              <div style={{ backgroundColor: "#FFFFFF", padding: "18px", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
-                <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#1E293B", marginBottom: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "16px", border: "1px solid #E2E8F0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#0F172A", marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span>Assigned Students</span>
-                  <span style={{ backgroundColor: "#EFF6FF", color: "#2563EB", padding: "2px 8px", borderRadius: "12px", fontSize: "12px" }}>
+                  <span style={{ backgroundColor: "#F3E8FF", color: "#7C3AED", padding: "2px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: 700 }}>
                     {projects.length}
                   </span>
                 </h3>

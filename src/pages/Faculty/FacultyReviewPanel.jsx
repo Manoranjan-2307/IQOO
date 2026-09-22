@@ -144,13 +144,13 @@ export default function FacultyReviewPanel() {
   });
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F6F9FC", display: "flex", flexDirection: "column", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", display: "flex", flexDirection: "column", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex", flex: 1 }}>
         <Sidebar />
-        <main style={{ flex: 1, padding: "24px 28px", minWidth: 0 }}>
+        <main style={{ flex: 1, padding: "28px 36px", minWidth: 0 }}>
           <div style={{ marginBottom: "24px" }}>
-            <h2 style={{ margin: 0, fontSize: "24px", fontWeight: 800, color: "#1F2937" }}>
+            <h2 style={{ margin: 0, fontSize: "28px", fontWeight: 700, color: "#0F172A", letterSpacing: "-0.5px" }}>
               Faculty Proposal Review Panel
             </h2>
           </div>
@@ -166,11 +166,12 @@ export default function FacultyReviewPanel() {
                 style={{
                   width: "100%",
                   padding: "10px 12px 10px 40px",
-                  borderRadius: "8px",
+                  borderRadius: "12px",
                   border: "1px solid #CBD5E1",
-                  backgroundColor: "#F8FAFC",
-                  color: "#1F2937",
+                  backgroundColor: "#FFFFFF",
+                  color: "#0F172A",
                   fontSize: "14px",
+                  outline: "none",
                   boxSizing: "border-box",
                 }}
               />

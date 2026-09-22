@@ -58,7 +58,7 @@ export default function Sidebar() {
         height: "calc(100vh - 64px)",
         maxHeight: "calc(100vh - 64px)",
         backgroundColor: "#FFFFFF",
-        borderRight: "1px solid #D9E2EC",
+        borderRight: "1px solid #E2E8F0",
         padding: "24px 0 16px 0",
         display: "flex",
         flexDirection: "column",
@@ -153,9 +153,9 @@ export default function Sidebar() {
               title="IP Filing Tracker"
             />
             <SidebarItem
-              to="/faculty/dashboard"
-              iconClass="bi bi-journal-text"
-              title="Research Projects"
+              to="/ip-cell/examination"
+              iconClass="bi bi-clipboard2-check"
+              title="Expedited IP Examination"
             />
           </>
         )}
@@ -181,6 +181,11 @@ export default function Sidebar() {
               to="/ip-tracker"
               iconClass="bi bi-shield-check"
               title="IP Tracker"
+            />
+            <SidebarItem
+              to="/ip-cell/examination"
+              iconClass="bi bi-clipboard2-check"
+              title="Expedited IP Examination"
             />
           </>
         )}

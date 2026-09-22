@@ -63,33 +63,33 @@ export default function AcademicCatalogueManager() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F8FAFC", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar activeTab="academics-catalogue" />
 
-        <main style={{ flex: 1, padding: "20px 32px", width: "100%", boxSizing: "border-box" }}>
+        <main style={{ flex: 1, padding: "28px 36px", width: "100%", boxSizing: "border-box" }}>
           {/* Header Title (Clean) */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-            <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#1E293B", margin: 0 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
+            <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#0F172A", margin: 0 }}>
               S5 Catalogue Management
             </h1>
 
             <button
               onClick={() => setShowCreateModal(true)}
               style={{
-                backgroundColor: "#D97706",
+                backgroundColor: "#7C3AED",
                 color: "#FFFFFF",
-                padding: "9px 18px",
-                borderRadius: "8px",
+                padding: "10px 18px",
+                borderRadius: "12px",
                 border: "none",
                 fontWeight: 600,
                 fontSize: "13px",
                 display: "flex",
                 alignItems: "center",
-                gap: "6px",
+                gap: "8px",
                 cursor: "pointer",
-                boxShadow: "0 2px 8px rgba(217, 119, 6, 0.2)",
+                boxShadow: "0 4px 12px rgba(124, 58, 237, 0.25)",
               }}
             >
               <PlusCircle size={16} /> Publish New Topic

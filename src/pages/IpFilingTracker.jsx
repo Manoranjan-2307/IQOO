@@ -289,7 +289,7 @@ export default function IpFilingTracker() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#F6F9FC",
+        backgroundColor: "#F5F7FC",
         display: "flex",
         flexDirection: "column",
         fontFamily: "'Poppins', sans-serif",
@@ -298,7 +298,7 @@ export default function IpFilingTracker() {
       <Navbar />
       <div style={{ display: "flex", flex: 1 }}>
         <Sidebar />
-        <main style={{ flex: 1, padding: "24px 28px", minWidth: 0 }}>
+        <main style={{ flex: 1, padding: "28px 36px", minWidth: 0 }}>
           {/* Header */}
           <div
             style={{
@@ -311,9 +311,9 @@ export default function IpFilingTracker() {
             }}
           >
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <ShieldCheck size={28} color="#4B5D8C" />
-                <h2 style={{ margin: 0, fontSize: "24px", fontWeight: 800, color: "#1F2937", letterSpacing: "-0.5px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <ShieldCheck size={30} color="#7C3AED" />
+                <h2 style={{ margin: 0, fontSize: "28px", fontWeight: 700, color: "#0F172A", letterSpacing: "-0.5px" }}>
                   Campus IP &amp; Patent Tracker
                 </h2>
               </div>
@@ -326,15 +326,15 @@ export default function IpFilingTracker() {
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
-                  padding: "10px 16px",
-                  borderRadius: "8px",
+                  padding: "10px 18px",
+                  borderRadius: "12px",
                   backgroundColor: "#FFFFFF",
-                  border: "1px solid #D9E2EC",
-                  color: "#1F2937",
+                  border: "1px solid #E2E8F0",
+                  color: "#0F172A",
                   fontSize: "13px",
                   fontWeight: 600,
                   cursor: "pointer",
-                  boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.02)",
                 }}
               >
                 <Download size={16} /> Export CSV

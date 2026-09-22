@@ -39,24 +39,24 @@ export default function MilestoneTimeline({ status }) {
           const state = getStepState(step.id);
           const Icon = step.icon;
 
-          let bgColor = "#E2E8F0";
-          let textColor = "#64748B";
-          let borderColor = "#CBD5E1";
+          let bgColor = "#F1F5F9";
+          let textColor = "#94A3B8";
+          let borderColor = "#E2E8F0";
 
           if (state === "completed") {
-            bgColor = "#10B981";
+            bgColor = "#059669";
             textColor = "#FFFFFF";
             borderColor = "#059669";
           } else if (state === "active") {
-            bgColor = "#2563EB";
+            bgColor = "#7C3AED";
             textColor = "#FFFFFF";
-            borderColor = "#1D4ED8";
+            borderColor = "#7C3AED";
           } else if (state === "warning") {
-            bgColor = "#F59E0B";
+            bgColor = "#D97706";
             textColor = "#FFFFFF";
             borderColor = "#D97706";
           } else if (state === "rejected") {
-            bgColor = "#EF4444";
+            bgColor = "#DC2626";
             textColor = "#FFFFFF";
             borderColor = "#DC2626";
           }
@@ -66,27 +66,27 @@ export default function MilestoneTimeline({ status }) {
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", zIndex: 2, flex: 1 }}>
                 <div
                   style={{
-                    width: "42px",
-                    height: "42px",
-                    borderRadius: "50%",
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "12px",
                     backgroundColor: bgColor,
                     color: textColor,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     fontWeight: "bold",
-                    border: `3px solid ${borderColor}`,
-                    boxShadow: state === "active" ? "0 0 12px rgba(37, 99, 235, 0.4)" : "none",
+                    border: `2px solid ${borderColor}`,
+                    boxShadow: state === "active" ? "0 4px 12px rgba(124, 58, 237, 0.3)" : "none",
                     transition: "all 0.3s ease",
                   }}
                 >
-                  <Icon size={20} />
+                  <Icon size={18} />
                 </div>
                 <span
                   style={{
                     fontSize: "12px",
-                    fontWeight: state === "active" || state === "completed" ? "600" : "400",
-                    color: state === "active" ? "#1E293B" : "#64748B",
+                    fontWeight: state === "active" || state === "completed" ? "600" : "500",
+                    color: state === "active" ? "#7C3AED" : state === "completed" ? "#0F172A" : "#64748B",
                     marginTop: "8px",
                     textAlign: "center",
                   }}
@@ -98,12 +98,11 @@ export default function MilestoneTimeline({ status }) {
                 <div
                   style={{
                     flex: 1,
-                    height: "4px",
-                    backgroundColor: idx < steps.findIndex((s) => s.id === status) ? "#10B981" : "#E2E8F0",
-                    margin: "0 -10px",
-                    marginBottom: "24px",
+                    height: "3px",
+                    backgroundColor: state === "completed" ? "#059669" : "#E2E8F0",
+                    marginTop: "-20px",
                     zIndex: 1,
-                    transition: "background-color 0.3s ease",
+                    transition: "all 0.3s ease",
                   }}
                 />
               )}

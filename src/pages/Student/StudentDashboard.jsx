@@ -54,11 +54,11 @@ export default function StudentDashboard() {
     const badges = {
       SUBMITTED: { bg: "#2563EB", text: "Submitted" },
       UNDER_REVIEW: { bg: "#D97706", text: "In Evaluation" },
-      REVISION_REQUESTED: { bg: "#EA580C", text: "Revision Needed" },
-      APPROVED: { bg: "#008000", text: "Approved" },
-      READY_FOR_IP: { bg: "#4F46E5", text: "Patent Eligible" },
-      IP_FILED: { bg: "#0284C7", text: "Patent Filed" },
-      REJECTED: { bg: "#FF4D4D", text: "Rejected" },
+      REVISION_REQUESTED: { bg: "#DC2626", text: "Revision Requested" },
+      APPROVED: { bg: "#059669", text: "Approved" },
+      READY_FOR_IP: { bg: "#6366F1", text: "Patent Eligible" },
+      IP_FILED: { bg: "#7C3AED", text: "Patent Filed" },
+      REJECTED: { bg: "#DC2626", text: "Rejected" },
     };
     const b = badges[s] || badges.SUBMITTED;
     return (
@@ -66,12 +66,12 @@ export default function StudentDashboard() {
         style={{
           backgroundColor: b.bg,
           color: "#FFFFFF",
-          padding: "5px 18px",
-          borderRadius: "9999px",
+          padding: "4px 14px",
+          borderRadius: "20px",
           fontSize: "12px",
-          fontWeight: 600,
+          fontWeight: 700,
           display: "inline-block",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.08)",
+          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
         }}
       >
         {b.text}
@@ -80,15 +80,15 @@ export default function StudentDashboard() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F6F9FC", display: "flex", flexDirection: "column", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", display: "flex", flexDirection: "column", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex", flex: 1 }}>
         <Sidebar />
-        <main style={{ flex: 1, padding: "24px 28px", minWidth: 0 }}>
+        <main style={{ flex: 1, padding: "28px 36px", minWidth: 0 }}>
           {/* Top Bar */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", flexWrap: "wrap", gap: "16px" }}>
             <div>
-              <h2 style={{ margin: 0, fontSize: "24px", fontWeight: 800, color: "#1F2937", letterSpacing: "-0.5px" }}>
+              <h2 style={{ margin: 0, fontSize: "28px", fontWeight: 700, color: "#0F172A", letterSpacing: "-0.5px" }}>
                 Student Research Workspace
               </h2>
             </div>
@@ -98,21 +98,17 @@ export default function StudentDashboard() {
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                backgroundColor: "#4B5D8C",
-                color: "#FFFFFF",
                 padding: "10px 18px",
-                borderRadius: "8px",
+                borderRadius: "12px",
+                backgroundColor: "#7C3AED",
+                color: "#FFFFFF",
                 border: "none",
+                fontSize: "13px",
                 fontWeight: 600,
-                fontSize: "14px",
-                cursor: "pointer",
-                boxShadow: "0 4px 6px -1px rgba(75, 93, 140, 0.2)",
+                boxShadow: "0 4px 12px rgba(124, 58, 237, 0.25)",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#3F507A")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#4B5D8C")}
             >
-              <Plus size={18} />
-              Submit Proposal
+              <Plus size={16} /> Submit Research Proposal
             </button>
           </div>
 

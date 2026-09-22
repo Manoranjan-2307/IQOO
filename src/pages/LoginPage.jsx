@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Lock, Mail, School, User, Building, Layers, Award, Sparkles, CheckCircle2 } from "lucide-react";
+import { Lock, Mail, Building, User, Layers, Sparkles } from "lucide-react";
 import axios from "axios";
 
 export default function LoginPage() {
@@ -95,7 +95,7 @@ export default function LoginPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #EEF4F8 0%, #F6F9FC 100%)",
+        backgroundColor: "#F5F7FC",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -106,35 +106,35 @@ export default function LoginPage() {
       <div
         style={{
           width: "100%",
-          maxWidth: "420px",
+          maxWidth: "440px",
           backgroundColor: "#FFFFFF",
-          borderRadius: "16px",
-          border: "1px solid #D9E2EC",
-          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05)",
-          padding: "32px 28px",
+          borderRadius: "20px",
+          border: "1px solid #E2E8F0",
+          boxShadow: "0 10px 25px -5px rgba(15, 23, 42, 0.08)",
+          padding: "36px 32px",
         }}
       >
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
           <div
             style={{
-              width: "48px",
-              height: "48px",
-              background: "linear-gradient(135deg, #4B5D8C 0%, #3F507A 100%)",
-              borderRadius: "12px",
+              width: "52px",
+              height: "52px",
+              background: "linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)",
+              borderRadius: "16px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              margin: "0 auto 12px auto",
-              boxShadow: "0 2px 10px rgba(75, 93, 140, 0.3)",
+              margin: "0 auto 14px auto",
+              boxShadow: "0 4px 14px rgba(124, 58, 237, 0.3)",
             }}
           >
-            <Layers size={26} color="#ffffff" />
+            <Layers size={28} color="#FFFFFF" />
           </div>
-          <h2 style={{ fontSize: "22px", fontWeight: 800, color: "#1F2937", margin: "0 0 6px 0", letterSpacing: "-0.5px" }}>
-            Nexus-AI Platform
+          <h2 style={{ fontSize: "24px", fontWeight: 800, color: "#0F172A", margin: "0 0 6px 0", letterSpacing: "-0.5px" }}>
+            Nexus<span style={{ color: "#7C3AED" }}>-AI</span>
           </h2>
-          <p style={{ fontSize: "13px", color: "#64748B", margin: 0 }}>
+          <p style={{ fontSize: "13px", color: "#64748B", margin: 0, fontWeight: 500 }}>
             {isSignUp ? "Register a new campus researcher profile" : "Academic Research & IP Filing Lifecycle"}
           </p>
         </div>
@@ -142,88 +142,46 @@ export default function LoginPage() {
         {/* Quick Demo Credentials */}
         <div
           style={{
-            backgroundColor: "#EEF4F8",
-            border: "1px solid #D9E2EC",
-            borderRadius: "10px",
-            padding: "10px 12px",
-            marginBottom: "18px",
+            backgroundColor: "#F3E8FF",
+            border: "1px solid #DDD6FE",
+            borderRadius: "14px",
+            padding: "12px 14px",
+            marginBottom: "20px",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "6px" }}>
-            <Sparkles size={13} color="#4B5D8C" />
-            <span style={{ fontSize: "11px", fontWeight: 700, color: "#4B5D8C", textTransform: "uppercase" }}>
-              Quick Demo Fill
+          <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "8px" }}>
+            <Sparkles size={14} color="#7C3AED" />
+            <span style={{ fontSize: "11px", fontWeight: 700, color: "#7C3AED", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+              Quick Demo Fill Persona
             </span>
           </div>
-          <div style={{ display: "flex", gap: "6px" }}>
-            <button
-              type="button"
-              onClick={() => fillQuickLogin("student")}
-              style={{
-                flex: 1,
-                padding: "5px 4px",
-                fontSize: "11px",
-                fontWeight: 600,
-                backgroundColor: "#E8EDF7",
-                color: "#4B5D8C",
-                border: "1px solid #D9E2EC",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
-              🎓 Student
-            </button>
-            <button
-              type="button"
-              onClick={() => fillQuickLogin("faculty")}
-              style={{
-                flex: 1,
-                padding: "5px 4px",
-                fontSize: "11px",
-                fontWeight: 600,
-                backgroundColor: "#ECFDF5",
-                color: "#008000",
-                border: "1px solid #A7F3D0",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
-              👨‍🏫 Mentor
-            </button>
-            <button
-              type="button"
-              onClick={() => fillQuickLogin("ipcell")}
-              style={{
-                flex: 1,
-                padding: "5px 4px",
-                fontSize: "11px",
-                fontWeight: 600,
-                backgroundColor: "#F5F3FF",
-                color: "#7C3AED",
-                border: "1px solid #DDD6FE",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
-              🏛️ IP Cell
-            </button>
-            <button
-              type="button"
-              onClick={() => fillQuickLogin("academics")}
-              style={{
-                flex: 1,
-                padding: "5px 4px",
-                fontSize: "11px",
-                fontWeight: 600,
-                backgroundColor: "#FEF3C7",
-                color: "#D97706",
-                border: "1px solid #FDE68A",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
-            >
-              🏫 Office
-            </button>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {[
+              { key: "student", label: "Student" },
+              { key: "faculty", label: "Mentor" },
+              { key: "ipcell", label: "IP Cell" },
+              { key: "academics", label: "Office" },
+            ].map((p) => (
+              <button
+                key={p.key}
+                type="button"
+                onClick={() => fillQuickLogin(p.key)}
+                style={{
+                  flex: 1,
+                  padding: "6px 8px",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  backgroundColor: "#FFFFFF",
+                  color: "#7C3AED",
+                  border: "1px solid #DDD6FE",
+                  borderRadius: "20px",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease"
+                }}
+              >
+                {p.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -232,11 +190,11 @@ export default function LoginPage() {
           <div
             style={{
               display: "flex",
-              backgroundColor: "#EEF4F8",
-              borderRadius: "8px",
-              padding: "3px",
-              marginBottom: "16px",
-              border: "1px solid #D9E2EC",
+              backgroundColor: "#F8FAFC",
+              borderRadius: "12px",
+              padding: "4px",
+              marginBottom: "18px",
+              border: "1px solid #E2E8F0",
             }}
           >
             {["STUDENT", "FACULTY", "IP_CELL"].map((r) => (
@@ -246,14 +204,14 @@ export default function LoginPage() {
                 onClick={() => setRole(r)}
                 style={{
                   flex: 1,
-                  padding: "6px 0",
-                  fontSize: "11px",
+                  padding: "8px 0",
+                  fontSize: "12px",
                   fontWeight: 600,
                   border: "none",
-                  borderRadius: "6px",
+                  borderRadius: "8px",
                   backgroundColor: role === r ? "#FFFFFF" : "transparent",
-                  color: role === r ? "#4B5D8C" : "#64748B",
-                  boxShadow: role === r ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
+                  color: role === r ? "#7C3AED" : "#64748B",
+                  boxShadow: role === r ? "0 2px 4px rgba(0,0,0,0.06)" : "none",
                   cursor: "pointer",
                 }}
               >
@@ -269,10 +227,11 @@ export default function LoginPage() {
               backgroundColor: "#FEF2F2",
               border: "1px solid #FECACA",
               color: "#DC2626",
-              padding: "8px 12px",
-              borderRadius: "6px",
+              padding: "10px 14px",
+              borderRadius: "12px",
               fontSize: "12px",
-              marginBottom: "14px",
+              fontWeight: 600,
+              marginBottom: "16px",
             }}
           >
             {error}
@@ -280,14 +239,14 @@ export default function LoginPage() {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {isSignUp && (
             <div>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#1F2937", marginBottom: "4px" }}>
+              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
                 Full Name
               </label>
               <div style={{ position: "relative" }}>
-                <User size={15} color="#94A3B8" style={{ position: "absolute", left: "10px", top: "11px" }} />
+                <User size={16} color="#94A3B8" style={{ position: "absolute", left: "12px", top: "12px" }} />
                 <input
                   type="text"
                   required
@@ -296,12 +255,13 @@ export default function LoginPage() {
                   placeholder="e.g. Aarav Sharma"
                   style={{
                     width: "100%",
-                    padding: "9px 10px 9px 34px",
-                    borderRadius: "8px",
+                    padding: "10px 12px 10px 38px",
+                    borderRadius: "12px",
                     border: "1px solid #CBD5E1",
                     backgroundColor: "#F8FAFC",
-                    color: "#1F2937",
+                    color: "#0F172A",
                     fontSize: "13px",
+                    outline: "none",
                     boxSizing: "border-box",
                   }}
                 />
@@ -310,11 +270,11 @@ export default function LoginPage() {
           )}
 
           <div>
-            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#1F2937", marginBottom: "4px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
               Campus Email Address
             </label>
             <div style={{ position: "relative" }}>
-              <Mail size={15} color="#94A3B8" style={{ position: "absolute", left: "10px", top: "11px" }} />
+              <Mail size={16} color="#94A3B8" style={{ position: "absolute", left: "12px", top: "12px" }} />
               <input
                 type="email"
                 required
@@ -323,12 +283,13 @@ export default function LoginPage() {
                 placeholder="name@campus.edu"
                 style={{
                   width: "100%",
-                  padding: "9px 10px 9px 34px",
-                  borderRadius: "8px",
+                  padding: "10px 12px 10px 38px",
+                  borderRadius: "12px",
                   border: "1px solid #CBD5E1",
                   backgroundColor: "#F8FAFC",
-                  color: "#1F2937",
+                  color: "#0F172A",
                   fontSize: "13px",
+                  outline: "none",
                   boxSizing: "border-box",
                 }}
               />
@@ -336,11 +297,11 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#1F2937", marginBottom: "4px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
               Password
             </label>
             <div style={{ position: "relative" }}>
-              <Lock size={15} color="#94A3B8" style={{ position: "absolute", left: "10px", top: "11px" }} />
+              <Lock size={16} color="#94A3B8" style={{ position: "absolute", left: "12px", top: "12px" }} />
               <input
                 type="password"
                 required
@@ -349,12 +310,13 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 style={{
                   width: "100%",
-                  padding: "9px 10px 9px 34px",
-                  borderRadius: "8px",
+                  padding: "10px 12px 10px 38px",
+                  borderRadius: "12px",
                   border: "1px solid #CBD5E1",
                   backgroundColor: "#F8FAFC",
-                  color: "#1F2937",
+                  color: "#0F172A",
                   fontSize: "13px",
+                  outline: "none",
                   boxSizing: "border-box",
                 }}
               />
@@ -363,22 +325,23 @@ export default function LoginPage() {
 
           {isSignUp && (
             <div>
-              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#1F2937", marginBottom: "4px" }}>
+              <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
                 Department
               </label>
               <div style={{ position: "relative" }}>
-                <Building size={15} color="#94A3B8" style={{ position: "absolute", left: "10px", top: "11px" }} />
+                <Building size={16} color="#94A3B8" style={{ position: "absolute", left: "12px", top: "12px" }} />
                 <select
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
                   style={{
                     width: "100%",
-                    padding: "9px 10px 9px 34px",
-                    borderRadius: "8px",
+                    padding: "10px 12px 10px 38px",
+                    borderRadius: "12px",
                     border: "1px solid #CBD5E1",
                     backgroundColor: "#F8FAFC",
-                    color: "#1F2937",
+                    color: "#0F172A",
                     fontSize: "13px",
+                    outline: "none",
                     boxSizing: "border-box",
                   }}
                 >
@@ -400,16 +363,17 @@ export default function LoginPage() {
             disabled={loading}
             style={{
               width: "100%",
-              padding: "10px",
-              borderRadius: "8px",
+              padding: "12px",
+              borderRadius: "12px",
               border: "none",
-              background: "linear-gradient(135deg, #4B5D8C 0%, #3F507A 100%)",
+              background: "linear-gradient(135deg, #7C3AED 0%, #6366F1 100%)",
               color: "#FFFFFF",
               fontSize: "14px",
               fontWeight: 600,
               cursor: loading ? "not-allowed" : "pointer",
-              boxShadow: "0 4px 10px rgba(75, 93, 140, 0.25)",
-              marginTop: "6px",
+              boxShadow: "0 4px 12px rgba(124, 58, 237, 0.3)",
+              marginTop: "8px",
+              transition: "transform 0.15s ease"
             }}
           >
             {loading ? "Authenticating..." : isSignUp ? "Create Nexus-AI Account" : "Access Portal"}
@@ -417,7 +381,7 @@ export default function LoginPage() {
         </form>
 
         {/* Footer Mode Switcher */}
-        <div style={{ textAlign: "center", marginTop: "20px", fontSize: "12px", color: "#64748B" }}>
+        <div style={{ textAlign: "center", marginTop: "22px", fontSize: "13px", color: "#64748B" }}>
           {isSignUp ? "Already registered on Nexus-AI? " : "New researcher or student? "}
           <button
             type="button"
@@ -425,11 +389,11 @@ export default function LoginPage() {
             style={{
               background: "none",
               border: "none",
-              color: "#4B5D8C",
-              fontWeight: 600,
+              color: "#7C3AED",
+              fontWeight: 700,
               cursor: "pointer",
               padding: 0,
-              fontSize: "12px",
+              fontSize: "13px",
             }}
           >
             {isSignUp ? "Sign In" : "Register Here"}

@@ -51,35 +51,35 @@ export default function AcademicHelpdesk() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F8FAFC", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar activeTab="academics-helpdesk" />
 
-        {/* Full-width container (Zero Wasted Space) */}
-        <main style={{ flex: 1, padding: "20px 32px", width: "100%", boxSizing: "border-box" }}>
+        <main style={{ flex: 1, padding: "28px 36px", width: "100%", boxSizing: "border-box" }}>
           {/* Header Title (Clean) */}
-          <div style={{ marginBottom: "16px" }}>
-            <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#1E293B", margin: 0 }}>
+          <div style={{ marginBottom: "24px" }}>
+            <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#0F172A", margin: 0 }}>
               Academic Helpdesk
             </h1>
           </div>
 
           {/* Filter Pills */}
-          <div style={{ display: "flex", gap: "8px", marginBottom: "20px" }}>
+          <div style={{ display: "flex", gap: "8px", marginBottom: "24px" }}>
             {["OPEN", "RESOLVED", "ALL"].map((status) => (
               <button
                 key={status}
                 onClick={() => setSelectedStatus(status)}
                 style={{
-                  padding: "6px 14px",
+                  padding: "6px 16px",
                   borderRadius: "20px",
-                  border: selectedStatus === status ? "1px solid #2563EB" : "1px solid #CBD5E1",
-                  backgroundColor: selectedStatus === status ? "#2563EB" : "#FFFFFF",
-                  color: selectedStatus === status ? "#FFFFFF" : "#475569",
+                  border: selectedStatus === status ? "1px solid #7C3AED" : "1px solid #E2E8F0",
+                  backgroundColor: selectedStatus === status ? "#F3E8FF" : "#FFFFFF",
+                  color: selectedStatus === status ? "#7C3AED" : "#64748B",
                   fontSize: "12px",
                   fontWeight: 600,
                   cursor: "pointer",
+                  transition: "all 0.2s ease"
                 }}
               >
                 {status === "OPEN" ? "Pending Queries" : status === "RESOLVED" ? "Resolved Queries" : "All History"}

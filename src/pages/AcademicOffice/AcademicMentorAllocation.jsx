@@ -65,32 +65,32 @@ export default function AcademicMentorAllocation() {
   const confirmedSelections = selections.filter((s) => s.status === "CONFIRMED");
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#F8FAFC", fontFamily: "'Poppins', sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#F5F7FC", fontFamily: "'Poppins', sans-serif" }}>
       <Navbar />
       <div style={{ display: "flex" }}>
         <Sidebar activeTab="academics-allocation" />
 
-        <main style={{ flex: 1, padding: "20px 32px", width: "100%", boxSizing: "border-box" }}>
+        <main style={{ flex: 1, padding: "28px 36px", width: "100%", boxSizing: "border-box" }}>
           {/* Header Title (Clean) */}
-          <div style={{ marginBottom: "16px" }}>
-            <h1 style={{ fontSize: "22px", fontWeight: 700, color: "#1E293B", margin: 0 }}>
+          <div style={{ marginBottom: "24px" }}>
+            <h1 style={{ fontSize: "28px", fontWeight: 700, color: "#0F172A", margin: 0 }}>
               Faculty Guide Allocation
             </h1>
           </div>
 
           {/* Allocation Overview Cards */}
-          <div style={{ width: "100%", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "20px", boxSizing: "border-box" }}>
-            <div style={{ backgroundColor: "#FFFFFF", padding: "16px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-              <div style={{ fontSize: "11px", color: "#64748B", fontWeight: 600 }}>Unassigned Pending Students</div>
-              <div style={{ fontSize: "24px", fontWeight: 700, color: "#DC2626", marginTop: "4px" }}>{pendingSelections.length}</div>
+          <div style={{ width: "100%", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px", marginBottom: "24px", boxSizing: "border-box" }}>
+            <div style={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "16px", border: "1px solid #E2E8F0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+              <div style={{ fontSize: "12px", color: "#64748B", fontWeight: 600 }}>Unassigned Pending Students</div>
+              <div style={{ fontSize: "28px", fontWeight: 700, color: "#DC2626", marginTop: "6px" }}>{pendingSelections.length}</div>
             </div>
-            <div style={{ backgroundColor: "#FFFFFF", padding: "16px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-              <div style={{ fontSize: "11px", color: "#64748B", fontWeight: 600 }}>Confirmed Student Groups</div>
-              <div style={{ fontSize: "24px", fontWeight: 700, color: "#059669", marginTop: "4px" }}>{confirmedSelections.length}</div>
+            <div style={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "16px", border: "1px solid #E2E8F0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+              <div style={{ fontSize: "12px", color: "#64748B", fontWeight: 600 }}>Confirmed Student Groups</div>
+              <div style={{ fontSize: "28px", fontWeight: 700, color: "#059669", marginTop: "6px" }}>{confirmedSelections.length}</div>
             </div>
-            <div style={{ backgroundColor: "#FFFFFF", padding: "16px", borderRadius: "10px", border: "1px solid #E2E8F0" }}>
-              <div style={{ fontSize: "11px", color: "#64748B", fontWeight: 600 }}>Allocation Rule</div>
-              <div style={{ fontSize: "14px", fontWeight: 700, color: "#2563EB", marginTop: "4px" }}>
+            <div style={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "16px", border: "1px solid #E2E8F0", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+              <div style={{ fontSize: "12px", color: "#64748B", fontWeight: 600 }}>Allocation Rule</div>
+              <div style={{ fontSize: "16px", fontWeight: 700, color: "#7C3AED", marginTop: "8px" }}>
                 2 Students : 1 Guide per Title
               </div>
             </div>
