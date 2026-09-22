@@ -1,5 +1,5 @@
 services:
-  # 1. Nexus-AI Spring Boot REST API
+  # 1. Nexus-AI Spring Boot REST API Backend
   - type: web
     name: nexus-ai-backend
     env: docker
@@ -10,3 +10,12 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: dev
+
+  # 2. Nexus-AI React Frontend (Nginx Web Service)
+  - type: web
+    name: nexus-ai-frontend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /
