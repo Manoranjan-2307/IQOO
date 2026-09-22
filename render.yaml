@@ -11,11 +11,12 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: dev
 
-  # 2. Nexus-AI React Frontend (Nginx Web Service)
-  - type: web
+  # 2. Nexus-AI React Frontend (Render Free Static Web Portal)
+  - type: static
     name: nexus-ai-frontend
-    env: docker
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
-    plan: free
-    healthCheckPath: /
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
