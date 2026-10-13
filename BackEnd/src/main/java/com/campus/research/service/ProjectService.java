@@ -87,7 +87,6 @@ public class ProjectService {
         String storedFilePath = null;
         String originalFileName = null;
         String extractedText = null;
-        String summary = null;
 
         if (proposalFile != null && !proposalFile.isEmpty()) {
             originalFileName = proposalFile.getOriginalFilename();
@@ -95,13 +94,17 @@ public class ProjectService {
 
             try {
                 extractedText = pdfTextExtractionService.extractText(storedFilePath);
-                summary = ollamaSummarizationService.summarize(extractedText);
-            } catch (Exception ex) {
-                if (summary == null) {
-                    summary = "Summarization unavailable: " + ex.getMessage();
-                }
-            }
+            } catch (Exception ignored) {}
         }
+
+        // Generate high-accuracy, structured AI insights combining title, domain, dept, abstract & extracted text
+        String summary = ollamaSummarizationService.generateDeepInsight(
+                project.getTitle(),
+                project.getDomain(),
+                project.getDepartment(),
+                project.getAbstractText(),
+                extractedText
+        );
 
         project.setFileName(originalFileName != null ? originalFileName : "Research_Proposal_Abstract.pdf");
         project.setFileUrl(storedFilePath != null ? storedFilePath : "/uploads/sample_proposal.pdf");
@@ -130,5 +133,23 @@ public class ProjectService {
         );
 
         return savedProject;
+    }
+
+    @Transactional
+    public Project refreshAiInsight(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Project not found ID: " + projectId));
+
+        String insight = ollamaSummarizationService.generateDeepInsight(
+                project.getTitle(),
+                project.getDomain(),
+                project.getDepartment(),
+                project.getAbstractText(),
+                project.getExtractedText()
+        );
+
+        project.setSummary(insight);
+        project.setUpdatedAt(LocalDateTime.now());
+        return projectRepository.save(project);
     }
 }

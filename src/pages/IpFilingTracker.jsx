@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import PatentClaimsModal from "../components/PatentClaimsModal";
 import {
   ShieldCheck,
   Edit3,
@@ -16,7 +17,11 @@ import {
   Plus,
   Trash2,
   X,
-  RefreshCw
+  RefreshCw,
+  Sparkles,
+  ArrowUpDown,
+  ChevronUp,
+  ChevronDown
 } from "lucide-react";
 import axios from "axios";
 import { formatDate } from "../utils/formatDate";
@@ -32,6 +37,10 @@ export default function IpFilingTracker() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("ALL");
   const [selectedStatus, setSelectedStatus] = useState("ALL");
+  const [sortBy, setSortBy] = useState("date");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [patentStudioFiling, setPatentStudioFiling] = useState(null);
+  const [serverStats, setServerStats] = useState(null);
 
   const [newFiling, setNewFiling] = useState({
     projectId: "",
@@ -48,8 +57,14 @@ export default function IpFilingTracker() {
   const fetchIpFilings = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/ip-filings");
+      const [res, statsRes] = await Promise.all([
+        axios.get("/api/ip-filings"),
+        axios.get("/api/ip-filings/stats").catch(() => null)
+      ]);
       setIpFilings(Array.isArray(res.data) ? res.data : []);
+      if (statsRes && statsRes.data) {
+        setServerStats(statsRes.data);
+      }
     } catch (e) {
       console.error("Error fetching IP filings:", e);
       setIpFilings([]);
@@ -244,6 +259,39 @@ export default function IpFilingTracker() {
     return matchesSearch && matchesType && matchesStatus;
   });
 
+  const handleToggleSort = (columnKey) => {
+    if (sortBy === columnKey) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(columnKey);
+      setSortOrder("asc");
+    }
+  };
+
+  const sortedFilings = [...filteredFilings].sort((a, b) => {
+    let aVal = "";
+    let bVal = "";
+    if (sortBy === "title") {
+      aVal = (a.projectTitle || a.project_title || "").toLowerCase();
+      bVal = (b.projectTitle || b.project_title || "").toLowerCase();
+    } else if (sortBy === "appNo") {
+      aVal = (a.applicationNo || a.application_no || "").toLowerCase();
+      bVal = (b.applicationNo || b.application_no || "").toLowerCase();
+    } else if (sortBy === "status") {
+      aVal = (a.filingStatus || a.filing_status || "").toLowerCase();
+      bVal = (b.filingStatus || b.filing_status || "").toLowerCase();
+    } else if (sortBy === "type") {
+      aVal = (a.ipType || a.ip_type || "").toLowerCase();
+      bVal = (b.ipType || b.ip_type || "").toLowerCase();
+    } else {
+      aVal = a.filingDate || a.filing_date || "";
+      bVal = b.filingDate || b.filing_date || "";
+    }
+    if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
+    if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
+    return 0;
+  });
+
   const exportCsv = () => {
     if (filteredFilings.length === 0) return;
     const headers = [
@@ -279,11 +327,12 @@ export default function IpFilingTracker() {
     document.body.removeChild(link);
   };
 
-  const draftedCount = safeFilings.filter((i) => (i.filingStatus || i.filing_status) === "DRAFTED").length;
-  const filedCount = safeFilings.filter((i) =>
+  const totalCount = serverStats?.totalFilings ?? safeFilings.length;
+  const draftedCount = serverStats?.drafted ?? safeFilings.filter((i) => (i.filingStatus || i.filing_status) === "DRAFTED").length;
+  const filedCount = (serverStats ? (serverStats.filed + serverStats.underExamination) : safeFilings.filter((i) =>
     ["FILED", "UNDER_EXAMINATION"].includes(i.filingStatus || i.filing_status)
-  ).length;
-  const grantedCount = safeFilings.filter((i) => (i.filingStatus || i.filing_status) === "GRANTED").length;
+  ).length);
+  const grantedCount = serverStats?.granted ?? safeFilings.filter((i) => (i.filingStatus || i.filing_status) === "GRANTED").length;
 
   return (
     <div
@@ -362,7 +411,7 @@ export default function IpFilingTracker() {
             >
               <div style={{ fontSize: "12px", color: "#64748B", fontWeight: 600 }}>Total Tracked Assets</div>
               <div style={{ fontSize: "28px", fontWeight: 800, color: "#1F2937", marginTop: "4px" }}>
-                {safeFilings.length}
+                {totalCount}
               </div>
             </div>
             <div
@@ -535,17 +584,77 @@ export default function IpFilingTracker() {
                 <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
                   <thead>
                     <tr style={{ backgroundColor: "#F8FAFC", borderBottom: "1px solid #D9E2EC", color: "#64748B" }}>
-                      <th style={{ padding: "14px 16px", fontWeight: 700 }}>Project Title &amp; Lead Researcher</th>
-                      <th style={{ padding: "14px 16px", fontWeight: 700 }}>IP Category</th>
-                      <th style={{ padding: "14px 16px", fontWeight: 700 }}>Application No.</th>
+                      <th
+                        onClick={() => handleToggleSort("title")}
+                        style={{ padding: "14px 16px", fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <span>Project Title &amp; Lead Researcher</span>
+                          {sortBy === "title" ? (
+                            sortOrder === "asc" ? <ChevronUp size={14} color="#7C3AED" /> : <ChevronDown size={14} color="#7C3AED" />
+                          ) : (
+                            <ArrowUpDown size={12} color="#94A3B8" />
+                          )}
+                        </div>
+                      </th>
+                      <th
+                        onClick={() => handleToggleSort("type")}
+                        style={{ padding: "14px 16px", fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <span>IP Category</span>
+                          {sortBy === "type" ? (
+                            sortOrder === "asc" ? <ChevronUp size={14} color="#7C3AED" /> : <ChevronDown size={14} color="#7C3AED" />
+                          ) : (
+                            <ArrowUpDown size={12} color="#94A3B8" />
+                          )}
+                        </div>
+                      </th>
+                      <th
+                        onClick={() => handleToggleSort("appNo")}
+                        style={{ padding: "14px 16px", fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <span>Application No.</span>
+                          {sortBy === "appNo" ? (
+                            sortOrder === "asc" ? <ChevronUp size={14} color="#7C3AED" /> : <ChevronDown size={14} color="#7C3AED" />
+                          ) : (
+                            <ArrowUpDown size={12} color="#94A3B8" />
+                          )}
+                        </div>
+                      </th>
                       <th style={{ padding: "14px 16px", fontWeight: 700 }}>Inventors &amp; Collaborators</th>
-                      <th style={{ padding: "14px 16px", fontWeight: 700 }}>Filing Date</th>
-                      <th style={{ padding: "14px 16px", fontWeight: 700 }}>Status</th>
+                      <th
+                        onClick={() => handleToggleSort("date")}
+                        style={{ padding: "14px 16px", fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <span>Filing Date</span>
+                          {sortBy === "date" ? (
+                            sortOrder === "asc" ? <ChevronUp size={14} color="#7C3AED" /> : <ChevronDown size={14} color="#7C3AED" />
+                          ) : (
+                            <ArrowUpDown size={12} color="#94A3B8" />
+                          )}
+                        </div>
+                      </th>
+                      <th
+                        onClick={() => handleToggleSort("status")}
+                        style={{ padding: "14px 16px", fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <span>Status</span>
+                          {sortBy === "status" ? (
+                            sortOrder === "asc" ? <ChevronUp size={14} color="#7C3AED" /> : <ChevronDown size={14} color="#7C3AED" />
+                          ) : (
+                            <ArrowUpDown size={12} color="#94A3B8" />
+                          )}
+                        </div>
+                      </th>
                       <th style={{ padding: "14px 16px", fontWeight: 700, textAlign: "right" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredFilings.map((ip) => {
+                    {sortedFilings.map((ip) => {
                       const title = ip.projectTitle || ip.project_title || "Campus Invention";
                       const student = ip.studentName || ip.student_name || "Lead Researcher";
                       const appNo = ip.applicationNo || ip.application_no;
@@ -594,6 +703,25 @@ export default function IpFilingTracker() {
                           <td style={{ padding: "14px 16px" }}>{getFilingStatusBadge(status)}</td>
                           <td style={{ padding: "14px 16px", textAlign: "right" }}>
                             <div style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                              <button
+                                onClick={() => setPatentStudioFiling(ip)}
+                                title="Open AI Patent Claims Studio & Prior-Art Radar"
+                                style={{
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "4px",
+                                  padding: "6px 10px",
+                                  borderRadius: "6px",
+                                  backgroundColor: "#EEF2FF",
+                                  color: "#4338CA",
+                                  border: "1px solid #C7D2FE",
+                                  fontSize: "12px",
+                                  fontWeight: 700,
+                                  cursor: "pointer",
+                                }}
+                              >
+                                <Sparkles size={13} color="#4F46E5" /> Claims Studio
+                              </button>
                               <button
                                 onClick={() => setEditingFiling(ip)}
                                 title="Manage & Update IP Lifecycle"
@@ -1412,6 +1540,13 @@ export default function IpFilingTracker() {
             </form>
           </div>
         </div>
+      )}
+
+      {patentStudioFiling && (
+        <PatentClaimsModal
+          filing={patentStudioFiling}
+          onClose={() => setPatentStudioFiling(null)}
+        />
       )}
     </div>
   );

@@ -67,4 +67,19 @@ public class ProjectController {
                     .body(Map.of("message", "Failed to submit project: " + ex.getMessage()));
         }
     }
+
+    @PostMapping("/{id}/ai-insights")
+    public ResponseEntity<?> refreshAiInsight(@PathVariable Long id) {
+        try {
+            Project updated = projectService.refreshAiInsight(id);
+            return ResponseEntity.ok(Map.of(
+                    "message", "AI insights regenerated successfully with high-depth evaluation",
+                    "project", updated,
+                    "summary", updated.getSummary()
+            ));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Failed to regenerate AI insights: " + ex.getMessage()));
+        }
+    }
 }

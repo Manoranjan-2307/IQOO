@@ -4,7 +4,9 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import MilestoneTimeline from "../../components/MilestoneTimeline";
 import NewProjectModal from "./NewProjectModal";
-import { Plus, FileText, Download, Clock, CheckCircle2, AlertCircle, ShieldCheck, MessageSquare, Sparkles } from "lucide-react";
+import AiInsightsCard from "../../components/AiInsightsCard";
+import PatentClaimsModal from "../../components/PatentClaimsModal";
+import { Plus, FileText, Download, Clock, CheckCircle2, AlertCircle, ShieldCheck, MessageSquare, Sparkles, Award } from "lucide-react";
 import axios from "axios";
 
 export default function StudentDashboard() {
@@ -14,6 +16,7 @@ export default function StudentDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [patentStudioProject, setPatentStudioProject] = useState(null);
 
   const fetchStudentProjects = async () => {
     try {
@@ -223,42 +226,14 @@ export default function StudentDashboard() {
                     </p>
 
                     {/* AI Insights Card */}
-                    {selectedProject.summary && (
-                      <div
-                        style={{
-                          border: "1px solid #D9E2EC",
-                          boxShadow: "0 2px 8px rgba(75, 93, 140, 0.08)",
-                          backgroundColor: "#E8EDF7",
-                          borderRadius: "8px",
-                          padding: "16px",
-                          marginBottom: "16px",
-                          position: "relative"
-                        }}
-                      >
-                        <span
-                          style={{
-                            position: "absolute",
-                            top: "8px",
-                            right: "8px",
-                            fontSize: "11px",
-                            fontWeight: "bold",
-                            color: "#4B5D8C",
-                            backgroundColor: "#FFFFFF",
-                            padding: "2px 8px",
-                            borderRadius: "9999px",
-                            border: "1px solid #D9E2EC"
-                          }}
-                        >
-                          ✨ AI Generated
-                        </span>
-                        <h4 style={{ margin: "0 0 8px 0", fontSize: "14px", fontWeight: 700, color: "#4B5D8C", display: "flex", alignItems: "center", gap: "6px" }}>
-                          <Sparkles size={16} color="#4B5D8C" /> AI Insights
-                        </h4>
-                        <p style={{ fontSize: "13px", color: "#1F2937", lineHeight: 1.5, margin: 0 }}>
-                          {selectedProject.summary}
-                        </p>
-                      </div>
-                    )}
+                    <AiInsightsCard
+                      project={selectedProject}
+                      onProjectUpdated={(updated) => {
+                        setSelectedProject(updated);
+                        setProjects(projects.map((p) => (p.id === updated.id ? updated : p)));
+                      }}
+                      onOpenPatentStudio={(p) => setPatentStudioProject(p)}
+                    />
 
                     <h4 style={{ margin: "0 0 8px 0", fontSize: "13px", fontWeight: 700, color: "#1F2937" }}>
                       Proposal Documents &amp; Attachments
@@ -344,6 +319,13 @@ export default function StudentDashboard() {
         studentId={user.id}
         studentDepartment={user.department}
       />
+
+      {patentStudioProject && (
+        <PatentClaimsModal
+          project={patentStudioProject}
+          onClose={() => setPatentStudioProject(null)}
+        />
+      )}
     </div>
   );
 }

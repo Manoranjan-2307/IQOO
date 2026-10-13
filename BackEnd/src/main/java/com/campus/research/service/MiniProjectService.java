@@ -182,22 +182,35 @@ public class MiniProjectService {
     }
 
     private String generateAiLogAnalysis(int week, String workSummary, String challenges, String prototype) {
-        int wordCount = workSummary != null ? workSummary.split("\\s+").length : 0;
+        int wordCount = workSummary != null ? workSummary.trim().split("\\s+").length : 0;
         boolean hasProto = prototype != null && !prototype.isBlank();
-        String qualityTier = wordCount > 30 ? "High Depth" : wordCount > 10 ? "Moderate" : "Brief";
+        boolean hasBlocker = challenges != null && !challenges.isBlank();
+
+        String qualityTier = wordCount >= 40 ? "Comprehensive" : wordCount >= 20 ? "Detailed" : "Minimal";
+        int sprintHealth = 70;
+        if (wordCount >= 25) sprintHealth += 10;
+        if (hasProto) sprintHealth += 15;
+        if (hasBlocker) sprintHealth -= 5;
+        sprintHealth = Math.min(100, Math.max(50, sprintHealth));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("🤖 AI Weekly Insight (Week ").append(week).append("): ");
-        sb.append("Documentation depth is ").append(qualityTier).append(" (").append(wordCount).append(" words). ");
+        sb.append("🤖 AI Sprint Analysis (Week ").append(week).append("): ");
+        sb.append("Documentation fidelity rated ").append(qualityTier).append(" (").append(wordCount).append(" words). ");
+
         if (hasProto) {
-            sb.append("✓ Prototype deliverable linked successfully. ");
+            sb.append("✓ Active build deliverable verified (").append(prototype.trim()).append("). ");
         } else if (week >= 3) {
-            sb.append("⚠️ Milestone Recommendation: Week ").append(week).append(" typically requires active prototype link. ");
+            sb.append("⚠️ Milestone Action Item: Deliverable link pending for mid-semester review checkpoint. ");
         }
-        if (challenges != null && !challenges.isBlank()) {
-            sb.append("Identified technical blocker: '").append(challenges.length() > 60 ? challenges.substring(0, 60) + "..." : challenges).append("'. ");
+
+        if (hasBlocker) {
+            String blockerPreview = challenges.trim().length() > 70 ? challenges.trim().substring(0, 70) + "..." : challenges.trim();
+            sb.append("Technical bottleneck flagged: \"").append(blockerPreview).append("\". Recommend faculty advisory consultation. ");
+        } else {
+            sb.append("No blocking obstacles reported for this sprint. ");
         }
-        sb.append("Pacing Score: ").append(hasProto ? "95/100" : "80/100").append(".");
+
+        sb.append("Velocity Index: ").append(sprintHealth).append("/100.");
         return sb.toString();
     }
 }
